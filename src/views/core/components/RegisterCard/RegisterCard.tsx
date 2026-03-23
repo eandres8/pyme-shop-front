@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { Button, Card, CardContent, TextField, Typography } from "@mui/material";
 
-export const LoginCard: React.FC = () => {
+
+export const RegisterCard: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (email: string, password: string) => {
     console.log(email, password);
   };
-
+  
   return (
     <Card sx={{ maxWidth: 400, width: "100%" }}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          Iniciar sesión
+          Crear cuenta
         </Typography>
 
         <TextField
@@ -35,11 +36,11 @@ export const LoginCard: React.FC = () => {
 
         <Button
           fullWidth
-          variant="contained"
+          variant="outlined"
           sx={{ mt: 2, borderRadius: "999px", }}
           onClick={() => handleLogin(email, password)}
         >
-          Entrar
+          Registrarse
         </Button>
       </CardContent>
     </Card>

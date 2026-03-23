@@ -15,7 +15,7 @@ export const Navbar: React.FC<Props> = ({ onSearch }) => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography variant="h6" sx={{ cursor: "pointer" }} onClick={() => navigate("/")}>
           Pyme Shop

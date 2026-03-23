@@ -86,13 +86,7 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
             mt: 2,
             borderRadius: "999px",
             textTransform: "none",
-            borderColor: "#000",
-            color: "#000",
             fontWeight: 500,
-            "&:hover": {
-              backgroundColor: "#000",
-              color: "#fff",
-            },
           }}
         >
           Comprar
