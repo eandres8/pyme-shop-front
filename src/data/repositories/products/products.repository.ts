@@ -1,20 +1,37 @@
+import { Result } from "@/app/core/result";
 import { Product } from "@/app/entities";
 import type { TProductPaginate } from "@/app/types/product.type";
 import { ProductsService } from "@/data/services";
-import type { TSearchProducts } from "@/data/types";
+import type { TParamsProducts } from "@/data/types";
 
 export function ProductsRepository() {
-  const getProducts = async (params: TSearchProducts): Promise<TProductPaginate> => {
+  const getProducts = async (params: TParamsProducts): Promise<Result<TProductPaginate>> => {
     const result = await ProductsService.getProducts(params);
 
     if (!result.isOk) {
-      throw result.getError();
+      return result;
     }
 
     const dataProducts = result.getData();
-    const products = dataProducts.data.map(Product.fromJson);
+    const products = dataProducts.data.map((i) => Product.fromJson(i).toPlain());
 
-    return ({
+    return Result.success({
+      ...dataProducts,
+      data: products,
+    });
+  }
+
+  const searchProducts = async (params: TParamsProducts): Promise<Result<TProductPaginate>> => {
+    const result = await ProductsService.searchProducts(params);
+
+    if (!result.isOk) {
+      return result;
+    }
+
+    const dataProducts = result.getData();
+    const products = dataProducts.data.map((i) => Product.fromJson(i).toPlain());
+
+    return Result.success({
       ...dataProducts,
       data: products,
     });
@@ -22,5 +39,6 @@ export function ProductsRepository() {
 
   return {
     getProducts,
+    searchProducts,
   };
 }

@@ -1,14 +1,15 @@
 import { Card, CardContent, Typography, Box, Button, Grid } from "@mui/material";
 
-import type { Product } from "@/app/entities";
+import type { TProduct } from "@/app/types/product.type";
 
 type Props = {
-  product: Product;
+  product: TProduct;
 };
 
 export const ProductCard: React.FC<Props> = ({ product }) => {
   return (
     <Card
+      className="product-card"
       sx={{
         borderRadius: "16px",
         border: "1px solid #eee",
@@ -33,7 +34,7 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
         <Box
           component="img"
           src="https://img.icons8.com/ios7/1200/image--v2.jpg"
-          alt={product.name}
+          alt={product.title}
           sx={{
             width: "100%",
             maxWidth: 180,
@@ -50,15 +51,17 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
           </Typography>
         </Box>
 
-        <Typography
-          fontWeight={600}
-          sx={{
-            mt: 1,
-            fontSize: "1rem",
-          }}
-        >
-          {product.name}
-        </Typography>
+        <Box height={50} overflow="hidden">
+          <Typography
+            fontWeight={600}
+            sx={{
+              mt: 1,
+              fontSize: "1rem",
+            }}
+          >
+            {product.title}
+          </Typography>
+        </Box>
 
         <Grid container spacing={2}>
           <Typography

@@ -4,14 +4,16 @@ import { AppBar, Toolbar, Typography, InputBase, IconButton } from "@mui/materia
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 type Props = {
-  onSearch: (search: string) => void;
+  onSearch?: (search: string) => void;
 }
 
 export const Navbar: React.FC<Props> = ({ onSearch }) => {
   const navigate = useNavigate();
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    onSearch(e.target.value);
+    const text = e.target.value;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    onSearch && onSearch(text);
   };
 
   return (
@@ -21,16 +23,21 @@ export const Navbar: React.FC<Props> = ({ onSearch }) => {
           Pyme Shop
         </Typography>
 
-        <InputBase
-          placeholder="Buscar producto..."
-          onChange={handleSearch}
-          sx={{
-            background: "white",
-            padding: "4px 10px",
-            borderRadius: 1,
-            width: "40%",
-          }}
-        />
+        {
+          onSearch && (
+            <InputBase
+              placeholder="Buscar producto..."
+              onChange={handleSearch}
+              sx={{
+                background: "white",
+                padding: "4px 10px",
+                borderRadius: 1,
+                width: "40%",
+              }}
+              type="search"
+            />
+          )
+        }
 
         <IconButton color="inherit" onClick={() => navigate("/cart")}>
           <ShoppingCartIcon />

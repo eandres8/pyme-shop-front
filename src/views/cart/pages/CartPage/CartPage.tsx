@@ -49,7 +49,7 @@ export const CartPage: React.FC = () => {
 
   return (
     <>
-      <Navbar onSearch={() => {}} />
+      <Navbar />
 
       <Box display="flex" justifyContent="center" pt={8}>
         <Box display="flex" width="100%" maxWidth={1280}>

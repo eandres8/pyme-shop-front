@@ -1,19 +1,17 @@
-import { useState } from "react";
 import { Box } from "@mui/material";
 
 import { Navbar } from "@/views/core/components";
 import { ProductList } from "../../components";
+import { useHomePage } from "./homePage.hook";
 
 export const HomePage: React.FC = () => {
-  const [search, setSearch] = useState("");
-
-  console.log({ search });
+  const { handleSearch } = useHomePage();
 
   return (
     <>
-      <Navbar onSearch={setSearch} />
+      <Navbar onSearch={handleSearch} />
       <Box display="flex" justifyContent="center" pt={8}>
-        <Box maxWidth={1280} id="prueba">
+        <Box maxWidth={1280} id="prueba"> 
           <ProductList />
         </Box>
       </Box>
