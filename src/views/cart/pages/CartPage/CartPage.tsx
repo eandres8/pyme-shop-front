@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 
 import { AuthCard, Navbar } from "@/views/core/components";
-import { CartList, type CartItem } from "../../components";
+import { CartList, CartSummary, type CartItem } from "../../components";
 
 const initialItems: CartItem[] = [
   {
@@ -22,7 +22,7 @@ const initialItems: CartItem[] = [
 ];
 
 export const CartPage: React.FC = () => {
-  const [isAuthenticated] = useState(false);
+  const [isAuthenticated] = useState(true);
   const [items, setItems] = useState(initialItems);
 
   const increase = (id: number) => {
@@ -85,7 +85,7 @@ export const CartPage: React.FC = () => {
                     <AuthCard />
                   </>
                 ) : (
-                  <Typography>Aquí irían las opciones de pago 💳</Typography>
+                  <CartSummary />
                 )}
               </Box>
             </Grid>
