@@ -1,12 +1,17 @@
 import { Card, CardContent, Typography, Box, Button, Grid } from "@mui/material";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-import type { TProduct } from "@/app/types/product.type";
+import type { TCartItem } from "@/app/types";
+import { IncrementButton } from "@/views/core/components";
+import { useCartItem } from "@/views/core/hooks";
 
 type Props = {
-  product: TProduct;
+  product: TCartItem;
 };
 
 export const ProductCard: React.FC<Props> = ({ product }) => {
+  const { handleAdd, handleDecrease, handleIncrease, handleRemove } = useCartItem();
+
   return (
     <Card
       className="product-card"
@@ -72,7 +77,7 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
           >
             Stock disponible: 
           </Typography>
-            <Typography
+          <Typography
             sx={{
               mt: 1,
               color: "#666",
@@ -82,19 +87,69 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
           </Typography>
         </Grid>
 
-        <Button
-          fullWidth
-          variant="outlined"
-          sx={{
-            mt: 2,
-            borderRadius: "999px",
-            textTransform: "none",
-            fontWeight: 500,
-          }}
-        >
-          Comprar
-        </Button>
+        {
+          product.quantity ? (
+            <Box mt={2} display="flex" justifyContent="space-between">
+              <IncrementButton
+                id={product.id}
+                quantity={product.quantity}
+                maxValue={product.stock}
+                onDecrease={handleDecrease(product.quantity)}
+                onIncrease={handleIncrease(product.quantity)}
+              />
+              <Button
+                size="small"
+                color="error"
+                startIcon={<DeleteOutlineIcon />}
+                onClick={() => handleRemove(product.id)}
+              >
+                Remove
+              </Button>
+            </Box>
+          ): (
+            <ButtonProductCard stock={product.stock} onClick={() => handleAdd(product)} />
+          )
+        }
       </CardContent>
     </Card>
   );
 }
+
+type ButtonProps = { stock: number; onClick: () => void };
+
+const ButtonProductCard: React.FC<ButtonProps> = ({ stock, onClick }) => {
+  return (
+    <>
+      {
+        stock ? (
+          <Button
+            fullWidth
+            variant="outlined"
+            sx={{
+              mt: 2,
+              borderRadius: "999px",
+              textTransform: "none",
+              fontWeight: 500,
+            }}
+            onClick={onClick}
+          >
+            Comprar
+          </Button>
+        ) : (
+          <Box mt={2}>
+            <Typography
+              sx={{
+                mt: 1,
+                color: "#666",
+                textAlign: "center",
+                opacity: 0.7
+              }}
+            >
+              No hay stock disponible
+            </Typography>
+          </Box>
+        )
+      }
+    </>
+  )
+};

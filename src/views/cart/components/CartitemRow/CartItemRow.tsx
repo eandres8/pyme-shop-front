@@ -1,26 +1,17 @@
 import {
   Box,
   Typography,
-  IconButton,
   Button,
 } from "@mui/material";
-import RemoveIcon from "@mui/icons-material/Remove";
-import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-
-export interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
+import { IncrementButton } from "@/views/core/components";
+import type { TCartItem } from "@/app/types";
 
 interface Props {
-  item: CartItem;
-  onIncrease: (id: number) => void;
-  onDecrease: (id: number) => void;
-  onRemove: (id: number) => void;
+  item: TCartItem;
+  onIncrease: (id: string) => void;
+  onDecrease: (id: string) => void;
+  onRemove: (id: string) => void;
 }
 
 export const CartItemRow: React.FC<Props> = ({
@@ -42,26 +33,22 @@ export const CartItemRow: React.FC<Props> = ({
       <Box display="flex" alignItems="center" gap={2} width="40%">
         <img
           src="https://img.icons8.com/ios7/1200/image--v2.jpg"
-          alt={item.name}
+          alt={item.title}
           style={{ width: 70, borderRadius: 8 }}
         />
 
         <Typography fontWeight="bold">
-          {item.name}
+          {item.title}
         </Typography>
       </Box>
 
-      <Box display="flex" alignItems="center" gap={1}>
-        <IconButton onClick={() => onDecrease(item.id)}>
-          <RemoveIcon />
-        </IconButton>
-
-        <Typography>{item.quantity}</Typography>
-
-        <IconButton onClick={() => onIncrease(item.id)}>
-          <AddIcon />
-        </IconButton>
-      </Box>
+      <IncrementButton
+        id={item.id}
+        maxValue={item.stock}
+        onIncrease={onIncrease}
+        onDecrease={onDecrease}
+        quantity={item.quantity}
+      />
 
       <Box width="120px" textAlign="right">
         <Typography fontWeight="bold">

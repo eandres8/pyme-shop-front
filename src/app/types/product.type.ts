@@ -13,4 +13,3 @@ export type TProductPaginate = {
   readonly limit: number;
   readonly totalPages: number;
 }
-

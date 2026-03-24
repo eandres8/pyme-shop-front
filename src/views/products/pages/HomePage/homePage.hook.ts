@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useDebounce } from "@/data/utils";
 import { useDispatch, useSelector } from "react-redux";
 
 import type { AppDispatch, RootState } from "@/stores/store";
 import { fetchProducts } from "@/stores/slices/products/productThunk";
+import { useDebounce } from "@/views/core/utils";
 
 export const useHomePage = () => {
   const [searchTerm, setSearchTerm] = useState('');

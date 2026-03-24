@@ -15,8 +15,6 @@ export const fetchProducts = createAsyncThunk(
   async (params: FetchProductsParams, { rejectWithValue }) => {
     let result;
 
-    console.log(params);
-
     if (params?.search) {
       result = await repository.searchProducts(params);
     } else {
