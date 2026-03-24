@@ -47,18 +47,8 @@ export const cartSlice = createSlice({
       state.itemQuantity = Object.fromEntries(itemQuantityMap.entries());
     },
   },
-  selectors: {
-    listCartItemsSelector: (state): TCartItem[] => {
-      const mapItems = new Map(Object.entries(state.itemQuantity));
-
-      return state.items.map(
-        (i) => ({ ...i, quantity: mapItems.get(i.id) }) as TCartItem,
-      );
-    },
-  },
 });
 
 export const { addItem, removeItem, updateItem } = cartSlice.actions;
-export const { listCartItemsSelector } = cartSlice.selectors;
 
 export default cartSlice.reducer;

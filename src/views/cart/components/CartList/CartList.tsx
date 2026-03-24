@@ -1,21 +1,16 @@
 import { Box, Typography } from "@mui/material";
 
-import type { CartItem } from "./ProductCartItem";
+import type { TCartItem } from "@/app/types";
 import { CartItemRow } from "../CartitemRow/CartItemRow";
+import { useCartItem } from "@/views/core/hooks";
 
-interface Props {
-  items: CartItem[];
-  onIncrease: (id: number) => void;
-  onDecrease: (id: number) => void;
-  onRemove: (id: number) => void;
-}
+type Props = {
+  items: TCartItem[];
+};
 
-export const CartList: React.FC<Props> = ({
-  items,
-  onIncrease,
-  onDecrease,
-  onRemove,
-}) => {
+export const CartList: React.FC<Props> = ({ items }) => {
+  const { handleDecrease, handleIncrease, handleRemove } = useCartItem();
+
   return (
     <Box>
       <Box
@@ -35,9 +30,9 @@ export const CartList: React.FC<Props> = ({
         <CartItemRow
           key={item.id}
           item={item}
-          onIncrease={onIncrease}
-          onDecrease={onDecrease}
-          onRemove={onRemove}
+          onIncrease={handleIncrease(item.quantity)}
+          onDecrease={handleDecrease(item.quantity)}
+          onRemove={() => handleRemove(item.id)}
         />
       ))}
     </Box>

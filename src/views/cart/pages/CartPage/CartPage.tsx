@@ -1,51 +1,11 @@
-import { useState } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 
 import { AuthCard, Navbar } from "@/views/core/components";
-import { CartList, CartSummary, type CartItem } from "../../components";
-
-const initialItems: CartItem[] = [
-  {
-    id: 1,
-    name: "HERO7 Black",
-    price: 399.99,
-    quantity: 1,
-    image: "https://via.placeholder.com/70",
-  },
-  {
-    id: 2,
-    name: "HERO7 Black",
-    price: 399.99,
-    quantity: 2,
-    image: "https://via.placeholder.com/70",
-  },
-];
+import { CartList, CartSummary } from "../../components";
+import { useCartPage } from "./cartPage";
 
 export const CartPage: React.FC = () => {
-  const [isAuthenticated] = useState(true);
-  const [items, setItems] = useState(initialItems);
-
-  const increase = (id: number) => {
-    setItems((prev) =>
-      prev.map((i) =>
-        i.id === id ? { ...i, quantity: i.quantity + 1 } : i
-      )
-    );
-  };
-
-  const decrease = (id: number) => {
-    setItems((prev) =>
-      prev.map((i) =>
-        i.id === id && i.quantity > 1
-          ? { ...i, quantity: i.quantity - 1 }
-          : i
-      )
-    );
-  };
-
-  const remove = (id: number) => {
-    setItems((prev) => prev.filter((i) => i.id !== id));
-  };
+  const { listItems, isAuthenticated, hasItems } = useCartPage();
 
   return (
     <>
@@ -65,12 +25,17 @@ export const CartPage: React.FC = () => {
                 <Typography variant="h5" align="center" gutterBottom>
                   Carrito de compras
                 </Typography>
-                <CartList
-                  items={items}
-                  onIncrease={increase}
-                  onDecrease={decrease}
-                  onRemove={remove}
-                />
+                {
+                  hasItems ? (
+                    <CartList items={listItems()} />
+                  ) : (
+                    <Box>
+                      <Typography variant="h6" align="center" gutterBottom sx={{ opacity: 0.7 }}>
+                        No hay productos seleccionados
+                      </Typography>
+                    </Box>
+                  )
+                }
               </Box>
             </Grid>
             <Grid size={{ xs: 12, md: 5 }}>
