@@ -12,7 +12,7 @@ const initialState: CartSlice = {
 };
 
 export const cartSlice = createSlice({
-  name: 'products',
+  name: 'cart',
   initialState,
   reducers: {
     addItem: (state, action: PayloadAction<TCartItem>) => {

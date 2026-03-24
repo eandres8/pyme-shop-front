@@ -1,7 +1,10 @@
 import type { ChangeEvent } from "react";
 import { useNavigate } from "react-router";
-import { AppBar, Toolbar, Typography, InputBase, IconButton } from "@mui/material";
+import { AppBar, Toolbar, Typography, InputBase, IconButton, Box } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import ExitToApp from "@mui/icons-material/ExitToApp";
+
+import { useAuth } from "../../hooks";
 
 type Props = {
   onSearch?: (search: string) => void;
@@ -9,6 +12,7 @@ type Props = {
 
 export const Navbar: React.FC<Props> = ({ onSearch }) => {
   const navigate = useNavigate();
+  const { logout, isAuthenticated } = useAuth();
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
@@ -39,9 +43,18 @@ export const Navbar: React.FC<Props> = ({ onSearch }) => {
           )
         }
 
-        <IconButton color="inherit" onClick={() => navigate("/cart")}>
-          <ShoppingCartIcon />
-        </IconButton>
+        <Box display="flex" gap={2}>
+          <IconButton color="inherit" onClick={() => navigate("/cart")}>
+            <ShoppingCartIcon />
+          </IconButton>
+          {
+            isAuthenticated && (
+              <IconButton color="inherit" onClick={logout}>
+                <ExitToApp />
+              </IconButton>
+            )
+          }
+        </Box>
       </Toolbar>
     </AppBar>
   );
