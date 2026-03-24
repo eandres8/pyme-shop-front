@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from "@mui/material";
 
 import { AuthCard, Navbar } from "@/views/core/components";
 import { CartList, CartSummary } from "../../components";
-import { useCartPage } from "./cartPage";
+import { useCartPage } from "./cart-page";
 import { useAuth } from "@/views/core/hooks";
 
 export const CartPage: React.FC = () => {

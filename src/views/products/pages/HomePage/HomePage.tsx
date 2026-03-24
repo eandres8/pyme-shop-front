@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 
 import { Navbar } from "@/views/core/components";
 import { ProductList } from "../../components";
-import { useHomePage } from "./homePage";
+import { useHomePage } from "./home-page";
 
 export const HomePage: React.FC = () => {
   const { handleSearch } = useHomePage();

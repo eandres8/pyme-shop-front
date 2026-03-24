@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router';
 
-import { HomePage } from './views/products/pages';
-import { CartPage } from './views/cart/pages';
+import { CartPage } from './views/cart/pages/CartPage/CartPage';
+import { HomePage } from './views/products/pages/HomePage/HomePage';
 
 function App() {
   return (
@@ -12,4 +12,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
