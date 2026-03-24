@@ -1,6 +1,10 @@
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 
+import { useCart } from "@/views/core/hooks";
+
 export const CartSummary: React.FC = () => {
+  const { total } = useCart();
+
   return (
     <Box>
       <Card>
@@ -9,7 +13,7 @@ export const CartSummary: React.FC = () => {
             <Typography variant="h5">Resumen</Typography>
             <Box display="flex" justifyContent="space-between">
               <Typography>Subtotal</Typography>
-              <Typography>$12334</Typography>
+              <Typography>${total()}</Typography>
             </Box>
             <Box display="flex" justifyContent="space-between">
               <Typography>Fee</Typography>
@@ -17,8 +21,8 @@ export const CartSummary: React.FC = () => {
             </Box>
             <Box borderBottom="1px solid #ddd" />
             <Box display="flex" justifyContent="space-between">
-              <Typography sx={{ fontWeight: 600 }}>Total</Typography>
-              <Typography>$12334</Typography>
+              <Typography fontSize={18} sx={{ fontWeight: 600 }}>Total</Typography>
+              <Typography fontSize={18}>${total()}</Typography>
             </Box>
             <Button
               fullWidth
