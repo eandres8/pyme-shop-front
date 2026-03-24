@@ -1,14 +1,21 @@
-import type { TCartItem, TProduct } from '@/app/types';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+
+import type { TCartItem, TProduct } from '@/app/types';
+import type { TOrder } from '@/data/types';
+import { createOrder } from './cartThunk';
 
 type CartSlice = {
   items: TProduct[];
   itemQuantity: Record<string, number>;
+  order: TOrder | null;
+  isLoading: boolean;
 };
 
 const initialState: CartSlice = {
   items: [],
   itemQuantity: {},
+  order: null,
+  isLoading: false,
 };
 
 export const cartSlice = createSlice({
@@ -46,6 +53,20 @@ export const cartSlice = createSlice({
 
       state.itemQuantity = Object.fromEntries(itemQuantityMap.entries());
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      // Create Order
+      .addCase(createOrder.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createOrder.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.order = action.payload;
+      })
+      .addCase(createOrder.rejected, (state) => {
+        state.isLoading = false;
+      })
   },
 });
 

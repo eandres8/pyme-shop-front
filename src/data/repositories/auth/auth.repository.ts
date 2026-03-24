@@ -7,16 +7,12 @@ export function AuthRepository() {
   const signIn = async (body: TSignIn): Promise<Result<TSession>> => {
     const result = await AuthService.signIn(body);
     
-    // TODO: add to storage
-
     return result;
   }
   
   const register = async (body: TRegister): Promise<Result<TSession>> => {
     const result = await AuthService.register(body);
     
-    // TODO: add to storage
-
     return result;
   }
 

@@ -5,11 +5,12 @@ import type { TCartItem } from "@/app/types";
 
 export const useCartPage = () => {
   // const dispatch = useDispatch<AppDispatch>();
-  const { itemQuantity, items } = useSelector(
+  const { itemQuantity, items, order } = useSelector(
     (state: RootState) => state.cart
   );
 
   const hasItems = !!items.length;
+  const hasOrder = !!order;
 
   const listItems = () => {
     const mapItems = new Map(Object.entries(itemQuantity));
@@ -22,5 +23,6 @@ export const useCartPage = () => {
   return {
     listItems,
     hasItems,
+    hasOrder,
   }
 };

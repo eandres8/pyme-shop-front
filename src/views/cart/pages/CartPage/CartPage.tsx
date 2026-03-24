@@ -1,12 +1,12 @@
 import { Box, Grid, Typography } from "@mui/material";
 
 import { AuthCard, Navbar } from "@/views/core/components";
-import { CartList, CartSummary } from "../../components";
+import { CartList, CartOrder, CartSummary } from "../../components";
 import { useCartPage } from "./cart-page";
 import { useAuth } from "@/views/core/hooks";
 
 export const CartPage: React.FC = () => {
-  const { listItems, hasItems } = useCartPage();
+  const { listItems, hasItems, hasOrder } = useCartPage();
   const { isAuthenticated } = useAuth();
 
   return (
@@ -52,7 +52,15 @@ export const CartPage: React.FC = () => {
                     <AuthCard />
                   </>
                 ) : (
-                  <CartSummary />
+                  <>
+                    {
+                      hasOrder ? (
+                        <CartOrder />
+                      ) : (
+                        <CartSummary />
+                      )
+                    }
+                  </>
                 )}
               </Box>
             </Grid>

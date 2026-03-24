@@ -3,6 +3,7 @@ import { to } from '@/app/core/to';
 import { Result } from '@/app/core/result';
 import { httpClient } from '@/config/http-client';
 import type { TSession } from '@/app/types/user.type';
+import { getErrorMessage } from '@/data/helper';
 
 export class AuthService {
   static async signIn(body: TSignIn): Promise<Result<TSession>> {
@@ -11,7 +12,7 @@ export class AuthService {
     );
 
     if (error) {
-      return Result.failure(new Error(error.message));
+      return Result.failure(new Error(getErrorMessage(error)));
     }
 
     return Result.success(session);
@@ -23,7 +24,7 @@ export class AuthService {
     );
 
     if (error) {
-      return Result.failure(new Error(error.message));
+      return Result.failure(new Error(getErrorMessage(error)));
     }
 
     return Result.success(session);

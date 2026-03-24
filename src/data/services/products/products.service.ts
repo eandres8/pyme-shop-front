@@ -3,6 +3,7 @@ import type { TProductPaginate } from '@/app/types/product.type';
 import { to } from '@/app/core/to';
 import { Result } from '@/app/core/result';
 import { httpClient } from '@/config/http-client';
+import { getErrorMessage } from '@/data/helper';
 
 export class ProductsService {
   static async getProducts(
@@ -15,7 +16,7 @@ export class ProductsService {
     );
 
     if (error) {
-      return Result.failure(new Error(error.message));
+      return Result.failure(new Error(getErrorMessage(error)));
     }
 
     return Result.success(products || []);
@@ -33,7 +34,7 @@ export class ProductsService {
     );
 
     if (error) {
-      return Result.failure(new Error(error.message));
+      return Result.failure(new Error(getErrorMessage(error)));
     }
 
     return Result.success(products || []);

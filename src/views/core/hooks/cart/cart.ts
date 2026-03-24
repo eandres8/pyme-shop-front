@@ -1,9 +1,12 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import type { RootState } from '@/stores/store';
+import type { AppDispatch, RootState } from '@/stores/store';
+import { createOrder } from '@/stores/slices/cart/cartThunk';
 
 export const useCart = () => {
-  const { items, itemQuantity } = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch<AppDispatch>();
+  const { token } = useSelector((state: RootState) => state.auth);
+  const { items, itemQuantity, isLoading, order } = useSelector((state: RootState) => state.cart);
 
   const total = () => {
     const mapQuantity = new Map(Object.entries(itemQuantity));
@@ -15,8 +18,21 @@ export const useCart = () => {
     }, 0);
   };
 
+  const submitOrder = () => {
+    dispatch(createOrder({
+      token,
+      products: Object.entries(itemQuantity).map(([key, value]) => ({
+        productId: key,
+        quantity: value,
+      })),
+    }));
+  }
+
   return {
     total,
     items,
+    submitOrder,
+    isLoading,
+    order,
   };
 };
